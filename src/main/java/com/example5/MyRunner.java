@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 
 import javax.transaction.Transactional;
 import java.util.logging.Logger;
-
+//CIAO Filippo CIAO Dario come state?
 public class MyRunner implements CommandLineRunner {
     private static final Logger logger= (Logger) LoggerFactory.getLogger(MyRunner.class);
 

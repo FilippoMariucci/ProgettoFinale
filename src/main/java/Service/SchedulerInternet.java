@@ -1,6 +1,9 @@
 package Service;
 
 
+import Repository.MeteoRepository;
+import org.springframework.scheduling.annotation.Scheduled;
+
 import java.util.Date;
 import java.util.TimerTask;
 

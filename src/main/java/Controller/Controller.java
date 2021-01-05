@@ -16,7 +16,7 @@ public class Controller {
 
     public @ResponseBody
     String hello(){
-        return "Hello Wordl!";
+        return "Hello Wordlcfgvhbjnvhvh!";
     }
 
     /**
@@ -38,27 +38,34 @@ public class Controller {
 
 
 
-   /* @Autowired
-    MeteoRepository meteoRepository;
+
+    /**
+     *
+     *   @Autowired
+     *     MeteoRepository meteoRepository;
+     *
+     *
+     *     @RequestMapping (" / Variabili ")
+     *     public List<SpazioVariabili> allVariables(){
+     *         var u1= new SpazioVariabili("3173435","it",278.71,279.82,279.26,275.98,"Milano");
+     *         meteoRepository.save(u1);
+     *         return (List<SpazioVariabili>) u1;
+     *     }
+     *
+     * @GetMapping("/Variables/count")
+     *     public Long count(){
+     *         return .count();
+     *     }
+     *
+     *     @DeleteMapping("/Variables/{id}")
+     *     public void delete(@PathVariable String id){
+     *         Long VariablesId=Long.parseLong(id);
+     *         meteoService.deleteById(VariablesId);
+     *     }
+     *
+     * @return
+     */
 
 
-    @RequestMapping ("/Variabili")
-    public List<SpazioVariabili> allVariables(){
-        var u1= new SpazioVariabili("3173435","it",278.71,279.82,279.26,275.98,"Milano");
-        meteoRepository.save(u1);
-        return (List<SpazioVariabili>) u1;
-    }
-
-    /*@GetMapping("/Variables/count")
-    public Long count(){
-        return meteoService.count();
-    }
-
-    @DeleteMapping("/Variables/{id}")
-    public void delete(@PathVariable String id){
-        Long VariablesId=Long.parseLong(id);
-        meteoService.deleteById(VariablesId);
-    }
-*/
 
 }

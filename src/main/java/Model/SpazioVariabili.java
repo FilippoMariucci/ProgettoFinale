@@ -105,4 +105,10 @@ public class SpazioVariabili {
         this.tempPerc=openWeatherParse.getTempPerc();
 
     }
+
+    @Override
+    public String toString(){
+        return "Spazio Varibile[CityId:"+this.CityId+"lenguages:"+this.lang+"Temperatira media/reale:"+this.tempMed+"" +
+                "Temperatura percepita:"+this.tempPerc+"Temperatura minima:"+this.valMin+"Temperatura massima:"+this.valMax;
+    }
 }

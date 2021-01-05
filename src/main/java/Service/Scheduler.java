@@ -1,4 +1,4 @@
-package Service;
+/*package Service;
 
 import Model.SpazioVariabili;
 import Repository.MeteoRepository;
@@ -14,7 +14,7 @@ public class Scheduler {
      * considerato come una classe la cui unica istanza viene gestita dal FrameWork
      */
 
-    @Autowired
+  /*  @Autowired
     MeteoRepository meteoRepository;
 
 
@@ -24,7 +24,7 @@ public class Scheduler {
      */
 
 
-    @Scheduled(fixedRate = 10000)
+   /* @Scheduled(fixedRate = 10000)
     public void ConnectToOpenWeather() {
         SpazioVariabili m1 = new SpazioVariabili();
         m1.getFromParse("5134295","it");
@@ -36,3 +36,4 @@ public class Scheduler {
 
     }
 }
+*/

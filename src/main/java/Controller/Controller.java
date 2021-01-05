@@ -1,8 +1,14 @@
 package Controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import Model.SpazioVariabili;
+import Repository.MeteoRepository;
+//import Repository.MeteoService;
+import Service.SchedulerInternet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Timer;
 
 @RestController
 public class Controller {
@@ -13,15 +19,37 @@ public class Controller {
         return "Hello Wordl!";
     }
 
-    /*@Autowired
-    private MeteoService meteoService;
+    /**
+     * ù@Autowired
+     *     private MeteoService meteoService;
+     *
+     */
 
-    @GetMapping("/Variabili")
+   /* @RequestMapping("/MIPIACELAFIGA1")
+    public @ResponseBody
+            SchedulerInternet si1{
+        si1= new SchedulerInternet("Task1");
+        t=new Timer();
+        t.sche
+
+    }*/
+
+
+
+
+
+   /* @Autowired
+    MeteoRepository meteoRepository;
+
+
+    @RequestMapping ("/Variabili")
     public List<SpazioVariabili> allVariables(){
-        return meteoService.findAll();
+        var u1= new SpazioVariabili("3173435","it",278.71,279.82,279.26,275.98,"Milano");
+        meteoRepository.save(u1);
+        return (List<SpazioVariabili>) u1;
     }
 
-    @GetMapping("/Variables/count")
+    /*@GetMapping("/Variables/count")
     public Long count(){
         return meteoService.count();
     }
@@ -31,6 +59,6 @@ public class Controller {
         Long VariablesId=Long.parseLong(id);
         meteoService.deleteById(VariablesId);
     }
-
 */
+
 }

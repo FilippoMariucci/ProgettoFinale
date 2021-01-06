@@ -22,10 +22,6 @@ public class SpazioVariabili {
     private double tempPerc;
     private String nomeCitta;
 
-
-
-    public SpazioVariabili(){}
-
     public SpazioVariabili(String cityId, String lang, double valMin, double valMax, double tempMed, double tempPerc, String nomeCitta) {
         this.CityId = cityId;
         this.lang = lang;

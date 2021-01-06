@@ -5,6 +5,8 @@ package Controller;
 //import Repository.MeteoService;
 
 //import Service.SchedulerInternet;
+import Model.SpazioVariabili;
+import Repository.MeteoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,14 +19,43 @@ import java.util.Timer;
 
 @RestController
 public class Controller {
-    @RequestMapping("/hello")
+ /**   private final MeteoRepository meteoRepository;
 
-    public @ResponseBody
-    String hello(){
-        return "Hello Wordlcfgvhbjnvhvh!";
+    Controller(MeteoRepository repository) {
+        meteoRepository = repository;
+    }
+    @GetMapping("\meteo")
+    Iterable<SpazioVariabili> getOpenWeatherParse() {
+        return meteoRepository.findAll();
     }
 
+  @GetMapping("\meteo")
+  Iterable<SpazioVariabili> getOpenWeatherParse(@PathVariable Long cityId) {
+  return meteoRepository.findById(cityId).orElseThreow(); //sevre per l'eccezione, poi vado a creare la mia eccezione
+  }
 
+    @PostMapping("/note") //ritorna una nota
+    Controller createNote(@ResponseBody Controller newNote) {
+    return MeteoRepository.save(newNote);
+    }
+
+    @PutMapping("/note/{cityId}")
+    Controller updateNote(@PathVariable long cityId, @RequestBody Controller noteDto){
+    Controller noteToUpdate = meteoRepository.findById(cityId).orElseThrow();
+    noteToUpdate.setTitle(noteDto.getTitle());
+    noteToUpdate.setContent(noteDto.getContent());
+    meteoRepository.save(noteToUpdate);
+    return meteoRepository.save(noteToUpdate);
+    }
+
+    @DeleteMapping("/note/{cityId}")
+    void deleteNote(@PathVariable long cityId){
+      Controller note = meteoRepository.findById(cityId).orElseThrow();
+    meteoRepository.delete(note);
+    }
+
+    }
+*/
 
 
 
@@ -32,7 +63,7 @@ public class Controller {
 
 
     /**
-     * ù@Autowired
+     * @Autowired
      *     private MeteoService meteoService;
      *
      *   @Autowired

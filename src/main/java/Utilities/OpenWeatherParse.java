@@ -1,9 +1,18 @@
 package Utilities;
 
+import com.fasterxml.jackson.core.JsonParser;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriBuilder;
+
+import javax.net.ssl.HttpsURLConnection;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.Scanner;
 
 public class OpenWeatherParse {
     /**
@@ -46,6 +55,7 @@ public class OpenWeatherParse {
      *  ID della città su cui effettuare la richiesta a OpenWeatherMap
      */
 
+
     public String getCityId(){ return CityId;}
     public double getValMin() {
         return valMin;
@@ -73,8 +83,7 @@ public class OpenWeatherParse {
 
 
 
-    public void parse(){
-
+    public void parse() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         JSONObject obj=null;
         RestTemplate restTemplate =new RestTemplate(); // oggetto che consumerà un' API REST
@@ -104,5 +113,15 @@ public class OpenWeatherParse {
             e.printStackTrace();
         }
 
+
+
+
+
+
     }
-}
+
+
+
+
+    }
+

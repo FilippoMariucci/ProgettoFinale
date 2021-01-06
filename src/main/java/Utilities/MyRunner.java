@@ -1,7 +1,7 @@
 package Utilities;
-
-import Model.SpazioVariabili;
-import Repository.MeteoRepository;
+/**
+//import Model.SpazioVariabili;
+//import Repository.MeteoRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,3 +25,4 @@ public class MyRunner implements CommandLineRunner {
 
     }
 }
+*/

@@ -1,11 +1,16 @@
 package Controller;
 
-import Model.SpazioVariabili;
-import Repository.MeteoRepository;
+//import Model.SpazioVariabili;
+//import Repository.MeteoRepository;
 //import Repository.MeteoService;
-import Service.SchedulerInternet;
+
+//import Service.SchedulerInternet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Timer;
@@ -19,27 +24,16 @@ public class Controller {
         return "Hello Wordlcfgvhbjnvhvh!";
     }
 
+
+
+
+
+
+
+
     /**
      * ù@Autowired
      *     private MeteoService meteoService;
-     *
-     */
-
-   /* @RequestMapping("/MIPIACELAFIGA1")
-    public @ResponseBody
-            SchedulerInternet si1{
-        si1= new SchedulerInternet("Task1");
-        t=new Timer();
-        t.sche
-
-    }*/
-
-
-
-
-
-
-    /**
      *
      *   @Autowired
      *     MeteoRepository meteoRepository;
@@ -63,9 +57,65 @@ public class Controller {
      *         meteoService.deleteById(VariablesId);
      *     }
      *
+     * @RequestMapping("/MIPIACELAFIGA1")
+     *     public @ResponseBody
+     *             SchedulerInternet si1{
+     *         si1= new SchedulerInternet("Task1");
+     *         t=new Timer();
+     *         t.sche
+     *
+     *     }
      * @return
+     *
+     *
+     *
+     *
+     *   MeteoRepository meteoRepository;
+     *     @RequestMapping("/Var")
+     *     public List<SpazioVariabili> allVariables(){
+     *       var m1=new SpazioVariabili("3173435","it",278.71,279.82,279.26,275.98,"Milano");
+     *       meteoRepository.save(m1);
+     *         return (List<SpazioVariabili>) m1;
+     *     }
+     *
+     *
+     *
+     *    @Autowired
+     *     private IMeteoService articleService;
+     *     @GetMapping("article/{id}")
+     *     public ResponseEntity<SpazioVariabili> getArticleById(@PathVariable("id") Integer id) {
+     *         SpazioVariabili meteo = articleService.getMeteoById(id);
+     *         return new ResponseEntity<SpazioVariabili>(meteo, HttpStatus.OK);
+     *     }
+     *     @GetMapping("articles")
+     *     public ResponseEntity<List<SpazioVariabili>> getAllArticles() {
+     *         List<SpazioVariabili> list = articleService.getallMeteos();
+     *         return new ResponseEntity<List<SpazioVariabili>>(list, HttpStatus.OK);
+     *     }
+     *     @PostMapping("article")
+     *     public ResponseEntity<Void> addArticle(@RequestBody SpazioVariabili meteo, UriComponentsBuilder builder) {
+     *         boolean flag = articleService.addMeteo(meteo);
+     *         if (flag == false) {
+     *             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+     *         }
+     *         HttpHeaders headers = new HttpHeaders();
+     *         headers.setLocation(builder.path("/article/{id}").buildAndExpand(meteo.getValMax()).toUri());
+     *         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+     *     }
+     *     @PutMapping("article")
+     *     public ResponseEntity<SpazioVariabili> updateArticle(@RequestBody SpazioVariabili meteo) {
+     *         articleService.updateMeteo(meteo);
+     *         return new ResponseEntity<SpazioVariabili>(meteo, HttpStatus.OK);
+     *     }
+     *     @DeleteMapping("article/{id}")
+     *     public ResponseEntity<Void> deleteArticle(@PathVariable("id") Integer id) {
+     *         articleService.deleteMeteo(id);
+     *         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+     *     }
+     *
+     *
+     *
+     *
+     *
      */
-
-
-
 }

@@ -1,10 +1,13 @@
-package Service;
+/**package Service;
 
 import Model.SpazioVariabili;
 import Repository.MeteoRepository;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 
 public class Scheduler {
@@ -15,9 +18,8 @@ public class Scheduler {
      */
 
 
-@Autowired
-    MeteoRepository meteoRepository;
 
+    //MeteoRepository meteoRepository;
 
     /**
      * @Autowired viene utilizzato poichè, essendo Configurations un componente, esso viene
@@ -25,8 +27,8 @@ public class Scheduler {
      */
 
 
-    @Scheduled(fixedRate = 10000)
-    public void ConnectToOpenWeather() {
+   /** @Scheduled(fixedRate = 10000)
+    public void ConnectToOpenWeather() throws IOException, ParseException {
         SpazioVariabili m1 = new SpazioVariabili();
         m1.getFromParse("5134295","it");
         meteoRepository.save(m1);
@@ -37,3 +39,4 @@ public class Scheduler {
 
     }
 }
+*/

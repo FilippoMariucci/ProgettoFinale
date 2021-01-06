@@ -2,8 +2,10 @@ package Model;
 
 
 import Utilities.OpenWeatherParse;
+import org.json.simple.parser.ParseException;
 
 import javax.persistence.*;
+import java.io.IOException;
 
 @Entity
 @Table(name = "spaziovariabili")
@@ -11,7 +13,7 @@ public class SpazioVariabili {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String CityId;
     private String lang;
     private double valMin;
@@ -93,7 +95,7 @@ public class SpazioVariabili {
 
     /* rihiamo dal parse i valori e li assegno alle varibili attraverso i vari metodi get*/
 
-    public void getFromParse(String CityId, String lang){
+    public void getFromParse(String CityId, String lang) throws IOException, ParseException {
         OpenWeatherParse openWeatherParse=new OpenWeatherParse(CityId,lang);
         openWeatherParse.parse();
         this.CityId=openWeatherParse.getCityId();

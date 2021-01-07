@@ -21,6 +21,7 @@ import java.util.Timer;
 
 
 
+
 @SpringBootApplication(scanBasePackages = {
 		"Utilities","Repository","Model","Controller","Service"})
 
@@ -29,6 +30,7 @@ public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 		{
+
 
 		}
 	}

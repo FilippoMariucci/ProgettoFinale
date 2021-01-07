@@ -20,7 +20,7 @@ public class OpenWeatherParse {
      */
     private String CityId;
 
-    private  String lang;
+
     /**
      * valore minimo di temperatura
      */
@@ -45,9 +45,8 @@ public class OpenWeatherParse {
 
     public OpenWeatherParse (){}
 
-    public OpenWeatherParse(String CityId, String lang) {
+    public OpenWeatherParse(String CityId) {
         this.CityId = CityId;
-        this.lang=lang;
     }
 
     /**
@@ -77,9 +76,7 @@ public class OpenWeatherParse {
         return nomeCitta;
     }
 
-    public String getLang() {
-        return lang;
-    }
+
 
 
 
@@ -88,7 +85,7 @@ public class OpenWeatherParse {
         JSONObject obj=null;
         RestTemplate restTemplate =new RestTemplate(); // oggetto che consumerà un' API REST
         String result = restTemplate.getForObject(
-                "http://api.openweathermap.org/data/2.5/weather?id="+this.CityId+"&lang="+this.lang+"&appid=acff9fc7b20e0ff3ebb1f1615f76abb1",String.class);
+                "http://api.openweathermap.org/data/2.5/weather?id="+this.CityId+"&lang=it&appid=acff9fc7b20e0ff3ebb1f1615f76abb1",String.class);
 
         System.out.println(result); // per  vedere se stampa qualcosa sulla console
 
@@ -112,16 +109,7 @@ public class OpenWeatherParse {
         catch (ParseException e) {
             e.printStackTrace();
         }
-
-
-
-
-
-
     }
-
-
-
 
     }
 

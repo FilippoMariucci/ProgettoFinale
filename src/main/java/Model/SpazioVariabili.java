@@ -22,6 +22,10 @@ public class SpazioVariabili {
     private double tempPerc;
     private String nomeCitta;
 
+
+    public SpazioVariabili() {}
+
+    
     public SpazioVariabili(String cityId, String lang, double valMin, double valMax, double tempMed, double tempPerc, String nomeCitta) {
         this.CityId = cityId;
         this.lang = lang;
@@ -31,6 +35,8 @@ public class SpazioVariabili {
         this.tempPerc = tempPerc;
         this.nomeCitta = nomeCitta;
     }
+
+
 
     public String getCityId() {
         return CityId;
@@ -91,11 +97,10 @@ public class SpazioVariabili {
 
     /* rihiamo dal parse i valori e li assegno alle varibili attraverso i vari metodi get*/
 
-    public void getFromParse(String CityId, String lang) throws IOException, ParseException {
-        OpenWeatherParse openWeatherParse=new OpenWeatherParse(CityId,lang);
+    public void getFromParse(String CityId) throws IOException, ParseException {
+        OpenWeatherParse openWeatherParse=new OpenWeatherParse(CityId);
         openWeatherParse.parse();
         this.CityId=openWeatherParse.getCityId();
-        this.lang=openWeatherParse.getLang();
         this.tempMed=openWeatherParse.getTempMed();
         this.nomeCitta=openWeatherParse.getNomeCitta();
         this.valMax=openWeatherParse.getValMax();
@@ -109,4 +114,5 @@ public class SpazioVariabili {
         return "Spazio Varibile[CityId:"+this.CityId+"lenguages:"+this.lang+"Temperatira media/reale:"+this.tempMed+"" +
                 "Temperatura percepita:"+this.tempPerc+"Temperatura minima:"+this.valMin+"Temperatura massima:"+this.valMax;
     }
+
 }

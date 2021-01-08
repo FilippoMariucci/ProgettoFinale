@@ -44,12 +44,12 @@ public  abstract class Richiesta extends MeteoUtilities {
     private JSONObject Periodo;
 
     /**
-     * istante di partenza per la ricerca ( UNIX)
+     * istante di partenza per la ricerca (UNIX)
      */
     protected Long Inizio;
 
     /**
-     * istante di fine per la ricerca ( UNIX)
+     * istante di fine per la ricerca (UNIX)
      */
 
     protected Long Fine;
@@ -100,18 +100,18 @@ public  abstract class Richiesta extends MeteoUtilities {
 
     private void date2epoch() {
 
-        String from = (String) this.Periodo.get("from");
-        String to = (String) this.Periodo.get("to");
+        String Inizio = (String) this.Periodo.get("Inizio");
+        String Fine = (String) this.Periodo.get("Fine");
 
-        if ((from != null) && (to != null)) { // il parsing è riuscito
+        if ((Inizio != null) && (Fine != null)) { // il parsing è riuscito
 
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                     .withZone(ZoneOffset.systemDefault());
 
-            if ((Instant.from(fmt.parse(from)).toEpochMilli() / 1000) < (Instant.from(fmt.parse(to)).toEpochMilli()
+            if ((Instant.from(fmt.parse(Inizio)).toEpochMilli() / 1000) < (Instant.from(fmt.parse(Fine)).toEpochMilli()
                     / 1000)) {
-                this.Inizio = Instant.from(fmt.parse(from)).toEpochMilli() / 1000;
-                this.Fine = Instant.from(fmt.parse(to)).toEpochMilli() / 1000;
+                this.Inizio = Instant.from(fmt.parse(Inizio)).toEpochMilli() / 1000;
+                this.Fine = Instant.from(fmt.parse(Fine)).toEpochMilli() / 1000;
 
             } else {
                 System.out.println("Intervallo non valido");

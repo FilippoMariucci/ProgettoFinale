@@ -18,6 +18,4 @@ public interface MeteoRepository extends JpaRepository<SpazioVariabili,Long> {
     List<SpazioVariabili> trovaValori(@Param("CityId") String CityId,
                                       @Param("Inizio") long Inizio,
                                       @Param("Fine") long Fine);
-
-
 }

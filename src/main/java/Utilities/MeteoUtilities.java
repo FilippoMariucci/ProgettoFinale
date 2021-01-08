@@ -9,13 +9,24 @@ import java.util.Calendar;
 
 public class MeteoUtilities {
 
+
     /**
-     * metedo che trasforma il risultato di timeStamp espressi in Unix in stringhe,formattando data e ora
+     * Metodo per effettuare arrotondamenti a due cifre decimali per i tipi double
+     * @param valore Valore da arrotondare
+     * @return the rounded value
+     */
+    protected double Arrotonda(double valore) {
+        int arrotondamento = (int) (valore*100.0);
+        return (double)arrotondamento/100;
+    }
+
+    /**
+     * metedo che trasforma il risultato di timeStamp espressi in Unix in stringhe, formattando data e ora
      */
 
     protected String toDateSTR(long millisecondi){
         DateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Calendar calendario=Calendar.getInstance();
+        Calendar calendario =Calendar.getInstance();
         calendario.setTimeInMillis(millisecondi);
         return  dateFormat.format(calendario.getTime());
 

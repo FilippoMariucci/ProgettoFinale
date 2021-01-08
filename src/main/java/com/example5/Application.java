@@ -6,12 +6,14 @@ import Service.SchedulerInternet;
 import Service.SchedulerInternet;
 import org.apache.catalina.webresources.war.Handler;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -27,9 +29,11 @@ import java.util.Timer;
 
 public class Application {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, ParseException {
 		SpringApplication.run(Application.class, args);
 		{
+
+
 
 
 		}

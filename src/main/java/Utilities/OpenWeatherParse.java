@@ -1,6 +1,7 @@
 package Utilities;
 
 import com.fasterxml.jackson.core.JsonParser;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -9,6 +10,7 @@ import org.springframework.web.util.UriBuilder;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -81,35 +83,41 @@ public class OpenWeatherParse {
 
 
     public void parse() throws IOException, ParseException {
-        JSONParser parser = new JSONParser();
-        JSONObject obj=null;
-        RestTemplate restTemplate =new RestTemplate(); // oggetto che consumerà un' API REST
-        String result = restTemplate.getForObject(
-                "http://api.openweathermap.org/data/2.5/weather?id="+this.CityId+"&lang=it&appid=acff9fc7b20e0ff3ebb1f1615f76abb1",String.class);
 
-        System.out.println(result); // per  vedere se stampa qualcosa sulla console
 
-        /* richiamo l'url con valori dati dall'utente e salvo il contenuto in result*/
-        try {
-            /* passo i dati contenunti in result in variabili specificando la forma del JSON*/
+
+
+            JSONParser parser = new JSONParser();
+             JSONObject obj=null;
+             RestTemplate restTemplate =new RestTemplate(); // oggetto che consumerà un' API REST
+             String result = restTemplate.getForObject(
+             "http://api.openweathermap.org/data/2.5/weather?id=3173435&lang=it&appid=acff9fc7b20e0ff3ebb1f1615f76abb1",String.class);
+
+             System.out.println(result); // per  vedere se stampa qualcosa sulla console
+
+             /* richiamo l'url con valori dati dall'utente e salvo il contenuto in result*/
+            try {
+             /* passo i dati contenunti in result in variabili specificando la forma del JSON*/
 
             obj=(JSONObject) parser.parse(result);
-            this.nomeCitta=(String) obj.get("name");
-            this.CityId = (String) obj.get("id");
-            JSONObject main =(JSONObject) obj.get("main");
-            this.tempMed=Double.parseDouble(main.get("temp").toString());
-            this.tempPerc=Double.parseDouble(main.get("feels_like").toString());
-            this.valMin=Double.parseDouble(main.get("temp_min").toString());
-            this.valMax=Double.parseDouble(main.get("temp_max").toString());
+             this.nomeCitta=(String) obj.get("name");
+             this.CityId = (String) obj.get("id");
+             JSONObject main =(JSONObject) obj.get("main");
+             this.tempMed=Double.parseDouble(main.get("temp").toString());
+             this.tempPerc=Double.parseDouble(main.get("feels_like").toString());
+             this.valMin=Double.parseDouble(main.get("temp_min").toString());
+             this.valMax=Double.parseDouble(main.get("temp_max").toString());
 
-            // System.out.println("temperatura reale:"+this.tempRe);
+             // System.out.println("temperatura reale:"+this.tempRe);
+
+             }
+             /*Signals that an error has been reached unexpectedly while parsing.*/
+            catch (ParseException e) {
+             e.printStackTrace();
+             }
+
 
         }
-        /*Signals that an error has been reached unexpectedly while parsing.*/
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     }
-

@@ -22,16 +22,9 @@ public class OpenWeatherParse {
      */
     private String CityId;
 
+    private long Epoch;
 
-    /**
-     * valore minimo di temperatura
-     */
-    private double valMin;
-    /**
-     * valore massimo della temperatura
-     */
-    private double valMax;
-
+    private String lang;
     /**
      * valore medio della temperatura
      */
@@ -47,8 +40,9 @@ public class OpenWeatherParse {
 
     public OpenWeatherParse (){}
 
-    public OpenWeatherParse(String CityId) {
+    public OpenWeatherParse(String CityId,String lang) {
         this.CityId = CityId;
+        this.lang=lang;
     }
 
     /**
@@ -58,16 +52,12 @@ public class OpenWeatherParse {
 
 
     public String getCityId(){ return CityId;}
-    public double getValMin() {
-        return valMin;
-    }
-
-    public double getValMax() {
-        return valMax;
-    }
 
     public double getTempMed() {
         return tempMed;
+    }
+    public long getEpoch() {
+        return Epoch;
     }
 
     public double getTempPerc() {
@@ -77,6 +67,7 @@ public class OpenWeatherParse {
     public String getNomeCitta() {
         return nomeCitta;
     }
+    public String getLang() { return lang;}
 
 
 
@@ -91,7 +82,7 @@ public class OpenWeatherParse {
              JSONObject obj=null;
              RestTemplate restTemplate =new RestTemplate(); // oggetto che consumerà un' API REST
              String result = restTemplate.getForObject(
-             "http://api.openweathermap.org/data/2.5/weather?id=3173435&lang=it&appid=acff9fc7b20e0ff3ebb1f1615f76abb1",String.class);
+             "http://api.openweathermap.org/data/2.5/weather?id="+this.CityId+"&lang=it&appid=acff9fc7b20e0ff3ebb1f1615f76abb1",String.class);
 
              System.out.println(result); // per  vedere se stampa qualcosa sulla console
 
@@ -102,11 +93,11 @@ public class OpenWeatherParse {
             obj=(JSONObject) parser.parse(result);
              this.nomeCitta=(String) obj.get("name");
              this.CityId = (String) obj.get("id");
+                this.Epoch = (Long) obj.get("dt");
              JSONObject main =(JSONObject) obj.get("main");
              this.tempMed=Double.parseDouble(main.get("temp").toString());
              this.tempPerc=Double.parseDouble(main.get("feels_like").toString());
-             this.valMin=Double.parseDouble(main.get("temp_min").toString());
-             this.valMax=Double.parseDouble(main.get("temp_max").toString());
+
 
              // System.out.println("temperatura reale:"+this.tempRe);
 
@@ -120,4 +111,5 @@ public class OpenWeatherParse {
         }
 
 
-    }
+
+}

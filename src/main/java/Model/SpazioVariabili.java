@@ -8,29 +8,29 @@ import javax.persistence.*;
 import java.io.IOException;
 
 @Entity
-@Table(name = "spaziovariabili")
+@Table(name = "Meteo2")
 public class SpazioVariabili {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long Id;
     private String CityId;
+    private Long Epoch;
     private String lang;
-    private double valMin;
-    private double valMax;
-    private double tempMed;
-    private double tempPerc;
+
+    private Double tempMed;
+    private Double tempPerc;
     private String nomeCitta;
 
 
     public SpazioVariabili() {}
 
     
-    public SpazioVariabili(String cityId, String lang, double valMin, double valMax, double tempMed, double tempPerc, String nomeCitta) {
+    public SpazioVariabili(String cityId, String lang, Long Epoch, Double tempMed, Double tempPerc, String nomeCitta) {
         this.CityId = cityId;
         this.lang = lang;
-        this.valMin = valMin;
-        this.valMax = valMax;
+this.Epoch=Epoch;
         this.tempMed = tempMed;
         this.tempPerc = tempPerc;
         this.nomeCitta = nomeCitta;
@@ -50,25 +50,18 @@ public class SpazioVariabili {
         return lang;
     }
 
+    public Long getEpoch() {
+        return Epoch;
+    }
+
+    public void setEpoch(Long epoch) {
+        Epoch = epoch;
+    }
+
     public void setLang(String lang) {
         this.lang = lang;
     }
 
-    public double getValMin() {
-        return valMin;
-    }
-
-    public void setValMin(double valMin) {
-        this.valMin = valMin;
-    }
-
-    public double getValMax() {
-        return valMax;
-    }
-
-    public void setValMax(double valMax) {
-        this.valMax = valMax;
-    }
 
     public double getTempRe() {
         return tempMed;
@@ -98,21 +91,17 @@ public class SpazioVariabili {
     /* rihiamo dal parse i valori e li assegno alle varibili attraverso i vari metodi get*/
 
     public void getFromParse(String CityId) throws IOException, ParseException {
-        OpenWeatherParse openWeatherParse=new OpenWeatherParse(CityId);
+        OpenWeatherParse openWeatherParse=new OpenWeatherParse(CityId,lang);
         openWeatherParse.parse();
         this.CityId=openWeatherParse.getCityId();
+        this.Epoch=openWeatherParse.getEpoch();
         this.tempMed=openWeatherParse.getTempMed();
         this.nomeCitta=openWeatherParse.getNomeCitta();
-        this.valMax=openWeatherParse.getValMax();
-        this.valMin=openWeatherParse.getValMin();
         this.tempPerc=openWeatherParse.getTempPerc();
 
     }
 
-    @Override
-    public String toString(){
-        return "Spazio Varibile[CityId:"+this.CityId+"lenguages:"+this.lang+"Temperatira media/reale:"+this.tempMed+"" +
-                "Temperatura percepita:"+this.tempPerc+"Temperatura minima:"+this.valMin+"Temperatura massima:"+this.valMax;
-    }
+
+
 
 }

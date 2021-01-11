@@ -1,5 +1,8 @@
 package Controller;
 
+import Eccezioni.EccezioneStatistiche;
+import Eccezioni.TimeTravelerExeption;
+import Model.SpazioVariabili;
 import Repository.MeteoRepository;
 import Utilities.MeteoUtilities;
 import org.json.simple.JSONArray;
@@ -7,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.security.InvalidParameterException;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +36,11 @@ public  abstract class Richiesta extends MeteoUtilities {
     protected JSONObject Risposta;
 
     /**
+     * tipologia di grandezza richiesta
+     */
+    protected String type;
+
+    /**
      * JSONArray che conterrà tutti i vari CityIds
      */
 
@@ -55,6 +64,12 @@ public  abstract class Richiesta extends MeteoUtilities {
     protected Long Fine;
 
     /**
+     * array contenente  la possibile grandezza
+     */
+    protected String[] types = { "temperature"};
+
+
+    /**
      * Costrutore di default
      */
 
@@ -64,9 +79,9 @@ public  abstract class Richiesta extends MeteoUtilities {
      * Costruttore con paremetri MeteoRepository, Filtro
      */
 
-    public Richiesta(MeteoRepository meteoRepository, JSONObject filtro){
+    public Richiesta(JSONObject  filter,MeteoRepository meteoRepository){
         this.meteoRepository=meteoRepository;
-        this.filtro=filtro;
+        this.filtro=filter;
         this.Risposta=new JSONObject();
     }
 
@@ -75,7 +90,7 @@ public  abstract class Richiesta extends MeteoUtilities {
      *Metodo astratto che si occupa di costruire la risposta. il metodo sarà svolto nella sua sottoclasse
      */
 
-    public abstract JSONObject getResult();
+    public abstract JSONObject getResult() throws EccezioneStatistiche;
 
     /**
      *Metodo che si occupa di effettuare un primo parse dalla richesta
@@ -83,11 +98,14 @@ public  abstract class Richiesta extends MeteoUtilities {
 
     protected boolean fisrtParseRequest(){
         try {
-            if((this.CityIDs = (JSONArray) this.filtro.get("cities")) == null)
+            if((this.CityIDs = (JSONArray) this.filtro.get("CityIDS")) == null)
                 return false;
             if((this.Periodo= (JSONObject) this.filtro.get("period")) != null) {
                 date2epoch();
             } else
+                return false;
+
+            if ((this.type=(String) this.filtro.get("type"))==null)
                 return false;
 
             return true;
@@ -98,7 +116,7 @@ public  abstract class Richiesta extends MeteoUtilities {
     }
 
 
-    private void date2epoch() {
+    private void date2epoch() throws TimeTravelerExeption {
 
         String Inizio = (String) this.Periodo.get("Inizio");
         String Fine = (String) this.Periodo.get("Fine");
@@ -114,14 +132,17 @@ public  abstract class Richiesta extends MeteoUtilities {
                 this.Fine = Instant.from(fmt.parse(Fine)).toEpochMilli() / 1000;
 
             } else {
-                System.out.println("Intervallo non valido");
+                throw new TimeTravelerExeption("Intervallo non Valido");
             }
 
         } else {
-            System.out.println("Parametri di ricerca non validi");
+           throw new InvalidParameterException("Parametri di ricerca non valide");
         }
     }
 
+    protected Double getValori(SpazioVariabili spazioVariabili,String type){
+        return spazioVariabili.getTempRe();
+    }
 
 
 

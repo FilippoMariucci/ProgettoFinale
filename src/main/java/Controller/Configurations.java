@@ -62,7 +62,7 @@ public class Configurations {
                 }
             } else {
                 JSONArray stdConfig = new JSONArray();
-                stdConfig.add("Montappone");
+                stdConfig.add("3180582");
                 try {
                     this.setConfig(stdConfig);
                 } catch (IOException e) {

@@ -51,16 +51,26 @@ public class StatisticCalculator extends MeteoUtilities{
         this.accumulatore+=spazioVariabili;
         if (spazioVariabili > this.max)
             this.max=spazioVariabili;
-        if (max==-Double.MAX_VALUE)
-                System.out.println("Campioni non trovati");
 
 
         if (spazioVariabili < this.min)
             this.min=spazioVariabili;
-        if (min==Double.MAX_VALUE)
-            System.out.println("Camppioni non trovati");
+
 
         this.spazioVariabilis.add(spazioVariabili);
+    }
+
+
+    public Double getMax()throws EccezioneStatistiche{
+        if (max==-Double.MAX_VALUE)
+            throw new EccezioneStatistiche("Campioni non trovati");
+        else return max;
+    }
+
+    public Double getMin()throws EccezioneStatistiche{
+        if (max==Double.MAX_VALUE)
+            throw new EccezioneStatistiche("Campioni non trovati");
+        else return min;
     }
 
     /**

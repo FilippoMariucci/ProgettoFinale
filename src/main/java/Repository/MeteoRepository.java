@@ -13,9 +13,9 @@ import java.util.List;
 
 
 @Repository
-public interface MeteoRepository extends JpaRepository<SpazioVariabili,Long> {
+public interface MeteoRepository extends CrudRepository<SpazioVariabili,Long> {
     @Query(value = "SELECT * FROM Meteo WHERE CITY_ID = :CityId AND EPOCH >= :start AND EPOCH <= :stop", nativeQuery = true)
     List<SpazioVariabili> trovaValori(@Param("CityId") String CityId,
-                                      @Param("Inizio") long Inizio,
-                                      @Param("Fine") long Fine);
+                                      @Param("start") long start,
+                                      @Param("stop") long stop);
 }

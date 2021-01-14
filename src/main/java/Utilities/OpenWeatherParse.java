@@ -5,6 +5,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriBuilder;
 
@@ -22,13 +24,16 @@ public class OpenWeatherParse {
      */
     private String CityId;
 
+    /**
+     * Istante temporale delle misurazioni, espresso in formato UNIX
+     */
     private long Epoch;
 
     private String lang;
     /**
      * valore medio della temperatura
      */
-    private double tempMed;
+    private double temp;
     /**
      * valore della temperatura percepita
      */
@@ -38,26 +43,27 @@ public class OpenWeatherParse {
      */
     private String nomeCitta;
 
-    public OpenWeatherParse (){}
+    private static final Logger logger= LoggerFactory.getLogger(OpenWeatherParse.class);
 
-    public OpenWeatherParse(String CityId,String lang) {
-        this.CityId = CityId;
-        this.lang=lang;
+    public OpenWeatherParse( String CityId) {
+        this.CityId=CityId;
     }
 
-    /**
-     *
-     *  ID della città su cui effettuare la richiesta a OpenWeatherMap
-     */
 
-
-    public String getCityId(){ return CityId;}
-
-    public double getTempMed() {
-        return tempMed;
+    public String getCityId() {
+        return CityId;
     }
+
     public long getEpoch() {
         return Epoch;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public double getTemp() {
+        return temp;
     }
 
     public double getTempPerc() {
@@ -67,49 +73,27 @@ public class OpenWeatherParse {
     public String getNomeCitta() {
         return nomeCitta;
     }
-    public String getLang() { return lang;}
 
+    public void parse(){
+        JSONParser parser=new JSONParser();
+        JSONObject obj=null;
+        RestTemplate restTemplate= new RestTemplate();
+        String result=restTemplate.getForObject(
+                "http://api.openweathermap.org/data/2.5/weather?appid=acff9fc7b20e0ff3ebb1f1615f76abb1" +
+                        "&lang=it&id="+this.CityId,String.class
+        );
+        logger.info(result);
 
-
-
-
-    public void parse() throws IOException, ParseException {
-
-
-
-
-            JSONParser parser = new JSONParser();
-             JSONObject obj=null;
-             RestTemplate restTemplate =new RestTemplate(); // oggetto che consumerà un' API REST
-             String result = restTemplate.getForObject(
-             "http://api.openweathermap.org/data/2.5/weather?id="+this.CityId+"&lang=it&appid=acff9fc7b20e0ff3ebb1f1615f76abb1",String.class);
-
-             System.out.println(result); // per  vedere se stampa qualcosa sulla console
-
-             /* richiamo l'url con valori dati dall'utente e salvo il contenuto in result*/
-            try {
-             /* passo i dati contenunti in result in variabili specificando la forma del JSON*/
-
+        try {
             obj=(JSONObject) parser.parse(result);
-             this.nomeCitta=(String) obj.get("name");
-             this.CityId = (String) obj.get("id");
-                this.Epoch = (Long) obj.get("dt");
-             JSONObject main =(JSONObject) obj.get("main");
-             this.tempMed=Double.parseDouble(main.get("temp").toString());
-             this.tempPerc=Double.parseDouble(main.get("feels_like").toString());
-
-
-             // System.out.println("temperatura reale:"+this.tempRe);
-
-             }
-             /*Signals that an error has been reached unexpectedly while parsing.*/
-            catch (ParseException e) {
-             e.printStackTrace();
-             }
-
-
+            this.CityId=(String) obj.get("id");
+            this.nomeCitta=(String) obj.get("name");
+            this.Epoch=(Long)obj.get("dt");
+            JSONObject main=(JSONObject) obj.get("main");
+            this.temp=Double.parseDouble(main.get("temp").toString());
+            this.tempPerc=Double.parseDouble(main.get("feels_like").toString());
+        }catch (ParseException e){
+            logger.error(e.toString());
         }
-
-
-
+    }
 }

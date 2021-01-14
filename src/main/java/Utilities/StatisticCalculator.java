@@ -70,7 +70,8 @@ public class StatisticCalculator extends MeteoUtilities{
     public Double getMin()throws EccezioneStatistiche{
         if (max==Double.MAX_VALUE)
             throw new EccezioneStatistiche("Campioni non trovati");
-        else return min;
+        else
+            return min;
     }
 
     /**
@@ -98,7 +99,7 @@ public class StatisticCalculator extends MeteoUtilities{
             Double med=this.getMedia();
             Double temp=0.0;
             for (Double spazioVariabili:spazioVariabilis){
-                temp+=Math.pow((spazioVariabili-med),2);
+                temp+=Math.pow((spazioVariabili - med),2);
             }
             return Arrotonda(temp/this.N_spazioVariabilis);
         }

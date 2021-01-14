@@ -2,8 +2,7 @@ package com.example5;
 
 import Model.SpazioVariabili;
 import Repository.MeteoRepository;
-import Service.SchedulerInternet;
-import Service.SchedulerInternet;
+
 import org.apache.catalina.webresources.war.Handler;
 
 import org.json.simple.parser.ParseException;

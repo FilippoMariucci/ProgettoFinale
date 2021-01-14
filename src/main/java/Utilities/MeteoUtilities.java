@@ -36,6 +36,7 @@ public class MeteoUtilities {
      * Metodo che permette di costruire un JSONObject di risposta di default
      */
 
+    @SuppressWarnings("unchecked")
     protected JSONObject Generarisposta(int code,String info,long time){
         JSONObject risposta=new JSONObject();
         risposta.put("code",code);

@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StatisticheApiUtente extends MeteoUtilities {
     private static final Logger logger= LoggerFactory.getLogger(StatisticheApiUtente.class);
 
+   // @Autowired
    MeteoRepository meteoRepository;
 
     /**
@@ -43,7 +45,7 @@ public class StatisticheApiUtente extends MeteoUtilities {
 
     @RequestMapping(value = "/stats",method = RequestMethod.POST)
     public JSONObject  stats(@RequestBody String filterStr){
-        JSONObject answer=new JSONObject();
+        JSONObject answer = new JSONObject();
 
         Long time=0L;
         try {
@@ -61,7 +63,12 @@ public class StatisticheApiUtente extends MeteoUtilities {
             time = System.currentTimeMillis() - time;
             answer = Generarisposta(1, e.toString(), time);
             logger.error(e.toString());
-        }catch (EccezioneStatistiche e) {
+        } catch (ClassCastException e){
+            time=System.currentTimeMillis()-time;
+            answer=Generarisposta(2,e.getMessage(),time);
+            logger.error(e.toString());
+
+        } catch (EccezioneStatistiche e) {
 
             //problemi a trovare la campioni
             time = System.currentTimeMillis() - time;

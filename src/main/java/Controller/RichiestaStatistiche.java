@@ -11,12 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.jar.JarOutputStream;
 
 /**
  * classe che eredit da Richiesta e presenta metodi specifici per la generazione delle statistiche
  */
-@SuppressWarnings("Unchecked")
+@SuppressWarnings("unchecked")
 public class RichiestaStatistiche extends Richiesta {
     private static final Logger logger= LoggerFactory.getLogger(RichiestaStatistiche.class);
 
@@ -34,30 +33,31 @@ public class RichiestaStatistiche extends Richiesta {
      * Effettuo l'overriding del metodo della superclasse
      * Ritorna la rispota in formato JSON all'utente
      */
+    @Override
     public JSONObject getResult()throws EccezioneStatistiche{
         if (fisrtParseRequest()){
-            JSONArray risultato= new JSONArray();
-            this.Risposta.put("code",0);
-            this.Risposta.put("info","");
+            JSONArray result= new JSONArray();
+            this.answer.put("code",0);
+            this.answer.put("info","");
 
-            for (Object cityIds :CityIDs){
-                String cityid=(String) cityIds;
-                logger.info(cityid);// giusto per controllare
+            for (Object city :cities){
+                String CityId=(String) city;
+                logger.info(CityId);// giusto per controllare
 
                   if (this.type.equals("all")){
                                       for (String type:this.types){
-                                          risultato.add(calcolaStatistiche(cityid,type));
+                                          result.add(calcolaStatistiche(CityId,type));
                                       }
                                   }else {
-                      risultato.add(calcolaStatistiche(cityid,this.type));
+                      result.add(calcolaStatistiche(CityId,this.type));
                   }
 
             }
-            this.Risposta.put("risultato",risultato);
+            this.answer.put("result",result);
         }else {
-            this.Risposta=Generarisposta(3,"File not ok",0L);
+            this.answer=Generarisposta(3,"File not ok",0L);
         }
-return this.Risposta;
+return this.answer;
     }
 
 
@@ -69,15 +69,15 @@ return this.Risposta;
      * sui dati estratti
      */
 
-    private JSONObject calcolaStatistiche(String cityId,String type)throws EccezioneStatistiche{
-        List<SpazioVariabili> spazioVariabilis=meteoRepository.trovaValori(cityId,this.Inizio,this.Fine);
+    private JSONObject calcolaStatistiche(String CityId,String type)throws EccezioneStatistiche{
+        List<SpazioVariabili> spazioVariabilis= meteoRepository.trovaValori(CityId,this.start,this.stop);
         JSONObject risultatiPerCityId=new JSONObject();
-        risultatiPerCityId.put("CityId",cityId);
+        risultatiPerCityId.put("CityId",CityId);
         risultatiPerCityId.put("type",type);
 
         StatisticCalculator statisticCalculator=new StatisticCalculator();
         for (SpazioVariabili spazioVariabili:spazioVariabilis){
-            statisticCalculator.addSpazioVaribili(getValori(spazioVariabili,type));
+            statisticCalculator.addSpazioVaribili(getValue(spazioVariabili,type));
         }
         JSONObject data =new JSONObject();
         data.put("max",statisticCalculator.getMax());

@@ -19,7 +19,7 @@ public class SpazioVariabili {
     private Long Epoch;
     private String lang;
 
-    private Double tempMed;
+    private Double temp;
     private Double tempPerc;
     private String nomeCitta;
 
@@ -27,11 +27,11 @@ public class SpazioVariabili {
     public SpazioVariabili() {}
 
     
-    public SpazioVariabili(String cityId, String lang, Long Epoch, Double tempMed, Double tempPerc, String nomeCitta) {
-        this.CityId = cityId;
+    public SpazioVariabili(String CityId, String lang, Long Epoch, Double tempMed, Double tempPerc, String nomeCitta) {
+        this.CityId = CityId;
         this.lang = lang;
-this.Epoch=Epoch;
-        this.tempMed = tempMed;
+        this.Epoch=Epoch;
+        this.temp = tempMed;
         this.tempPerc = tempPerc;
         this.nomeCitta = nomeCitta;
     }
@@ -63,12 +63,12 @@ this.Epoch=Epoch;
     }
 
 
-    public double getTempRe() {
-        return tempMed;
+    public double getTemp() {
+        return temp;
     }
 
-    public void setTempRe(double tempRe) {
-        this.tempMed = tempRe;
+    public void setTemp(double tempRe) {
+        this.temp = tempRe;
     }
 
     public double getTempPerc() {
@@ -91,11 +91,11 @@ this.Epoch=Epoch;
     /* rihiamo dal parse i valori e li assegno alle varibili attraverso i vari metodi get*/
 
     public void getFromParse(String CityId) throws IOException, ParseException {
-        OpenWeatherParse openWeatherParse=new OpenWeatherParse(CityId,lang);
+        OpenWeatherParse openWeatherParse=new OpenWeatherParse(CityId);
         openWeatherParse.parse();
         this.CityId=openWeatherParse.getCityId();
         this.Epoch=openWeatherParse.getEpoch();
-        this.tempMed=openWeatherParse.getTempMed();
+        this.temp=openWeatherParse.getTemp();
         this.nomeCitta=openWeatherParse.getNomeCitta();
         this.tempPerc=openWeatherParse.getTempPerc();
 

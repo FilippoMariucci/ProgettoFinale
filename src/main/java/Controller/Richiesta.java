@@ -27,13 +27,13 @@ public  abstract class Richiesta extends MeteoUtilities {
     /**
      * Filtro ricevuto dalla richiesta dell'api
      */
- protected JSONObject filtro;
+ protected JSONObject filter;
 
     /**
      * JSONObject utilizzato per costruire la nostra risposta
      */
 
-    protected JSONObject Risposta;
+    protected JSONObject answer;
 
     /**
      * tipologia di grandezza richiesta
@@ -41,39 +41,32 @@ public  abstract class Richiesta extends MeteoUtilities {
     protected String type;
 
     /**
-     * JSONArray che conterrà tutti i vari CityIds
+     * JSONArray che conterrà tutte le città richieste
      */
 
-    protected JSONArray CityIDs;
+    protected JSONArray cities;
 
     /**
      * JSONObject che conterrà il periodo di ricerca richiesto dall'utente
      */
 
-    private JSONObject Periodo;
+    private JSONObject period;
 
     /**
      * istante di partenza per la ricerca (UNIX)
      */
-    protected Long Inizio;
+    protected Long start;
 
     /**
      * istante di fine per la ricerca (UNIX)
      */
 
-    protected Long Fine;
+    protected Long stop;
 
     /**
      * array contenente  la possibile grandezza
      */
     protected String[] types = { "temperature"};
-
-
-    /**
-     * Costrutore di default
-     */
-
-    public Richiesta(){}
 
     /**
      * Costruttore con paremetri MeteoRepository, Filtro
@@ -81,8 +74,8 @@ public  abstract class Richiesta extends MeteoUtilities {
 
     public Richiesta(JSONObject  filter,MeteoRepository meteoRepository){
         this.meteoRepository=meteoRepository;
-        this.filtro=filter;
-        this.Risposta=new JSONObject();
+        this.filter=filter;
+        this.answer=new JSONObject();
     }
 
 
@@ -98,14 +91,14 @@ public  abstract class Richiesta extends MeteoUtilities {
 
     protected boolean fisrtParseRequest(){
         try {
-            if((this.CityIDs = (JSONArray) this.filtro.get("CityIDS")) == null)
+            if((this.cities = (JSONArray) this.filter.get("cities")) == null)
                 return false;
-            if((this.Periodo= (JSONObject) this.filtro.get("period")) != null) {
+            if((this.period= (JSONObject) this.filter.get("period")) != null) {
                 date2epoch();
             } else
                 return false;
 
-            if ((this.type=(String) this.filtro.get("type"))==null)
+            if ((this.type=(String) this.filter.get("type"))==null)
                 return false;
 
             return true;
@@ -116,20 +109,20 @@ public  abstract class Richiesta extends MeteoUtilities {
     }
 
 
-    private void date2epoch() throws TimeTravelerExeption {
+    private void date2epoch() throws TimeTravelerExeption,InvalidParameterException {
 
-        String Inizio = (String) this.Periodo.get("Inizio");
-        String Fine = (String) this.Periodo.get("Fine");
+        String from = (String) this.period.get("from");
+        String to = (String) this.period.get("to");
 
-        if ((Inizio != null) && (Fine != null)) { // il parsing è riuscito
+        if ((from != null) && (to != null)) { // il parsing è riuscito
 
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                     .withZone(ZoneOffset.systemDefault());
 
-            if ((Instant.from(fmt.parse(Inizio)).toEpochMilli() / 1000) < (Instant.from(fmt.parse(Fine)).toEpochMilli()
+            if ((Instant.from(fmt.parse(from)).toEpochMilli() / 1000) < (Instant.from(fmt.parse(to)).toEpochMilli()
                     / 1000)) {
-                this.Inizio = Instant.from(fmt.parse(Inizio)).toEpochMilli() / 1000;
-                this.Fine = Instant.from(fmt.parse(Fine)).toEpochMilli() / 1000;
+                this.start = Instant.from(fmt.parse(from)).toEpochMilli() / 1000;
+                this.stop = Instant.from(fmt.parse(to)).toEpochMilli() / 1000;
 
             } else {
                 throw new TimeTravelerExeption("Intervallo non Valido");
@@ -140,8 +133,16 @@ public  abstract class Richiesta extends MeteoUtilities {
         }
     }
 
-    protected Double getValori(SpazioVariabili spazioVariabili,String type){
-        return spazioVariabili.getTempRe();
+    protected Double getValue(SpazioVariabili spazioVariabili,String type){
+        switch (type){
+            case "temperature":
+                return spazioVariabili.getTemp();
+
+            default:
+                return -999.0;
+
+        }
+
     }
 
 

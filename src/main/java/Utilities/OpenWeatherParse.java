@@ -1,5 +1,6 @@
 package Utilities;
 
+import Service.StaticConfig;
 import com.fasterxml.jackson.core.JsonParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -79,7 +80,7 @@ public class OpenWeatherParse {
         JSONObject obj=null;
         RestTemplate restTemplate= new RestTemplate();
         String result=restTemplate.getForObject(
-                "http://api.openweathermap.org/data/2.5/weather?appid=acff9fc7b20e0ff3ebb1f1615f76abb1" +
+                "http://api.openweathermap.org/data/2.5/weather?appid="+ StaticConfig.getApikey()+
                         "&lang=it&id="+this.CityId,String.class
         );
         logger.info(result);

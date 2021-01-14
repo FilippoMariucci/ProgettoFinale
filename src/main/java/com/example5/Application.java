@@ -24,7 +24,7 @@ import java.util.Timer;
 
 
 @SpringBootApplication(scanBasePackages = {
-		"Utilities","Repository","Model","Controller","Service","ApiUtente"})
+		"Utilities","Repository","Model","Controller","Service","ApiUtente","Eccezioni"})
 
 public class Application {
 

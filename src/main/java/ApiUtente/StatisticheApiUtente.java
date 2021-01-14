@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StatisticheApiUtente extends MeteoUtilities {
     private static final Logger logger= LoggerFactory.getLogger(StatisticheApiUtente.class);
 
-   // @Autowired
+    @Autowired
    MeteoRepository meteoRepository;
 
     /**

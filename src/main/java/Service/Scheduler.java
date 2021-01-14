@@ -32,7 +32,7 @@ public class Scheduler {
      * considerato come una classe la cui unica istanza viene gestita dal FrameWork
      */
 
-    @Scheduled(fixedRate = 30000)//3600000
+    @Scheduled(fixedRateString = "${mmw.interval}")//3600000
     public void ConnectToOpenWeather() throws IOException, ParseException {
 
         final Logger logger = LoggerFactory.getLogger(Scheduler.class);

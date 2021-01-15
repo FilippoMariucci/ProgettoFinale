@@ -25,7 +25,7 @@ public class RichiestaStatistiche extends Richiesta {
      * @Param filtro è un filtro di ricerca ricevuto nelle api
      */
 
-    public RichiestaStatistiche(JSONObject filter,MeteoRepository meteoRepository){
+    public RichiestaStatistiche(JSONObject filter, MeteoRepository meteoRepository){
         super(filter,meteoRepository);
     }
 

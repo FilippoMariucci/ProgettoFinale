@@ -11,7 +11,6 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +32,7 @@ public class StatisticheApiUtente extends MeteoUtilities {
     private static final Logger logger= LoggerFactory.getLogger(StatisticheApiUtente.class);
 
     @Autowired
-   MeteoRepository meteoRepository;
+    MeteoRepository meteoRepository;
 
     /**
      * @RequestMapping è l'annotazione usata per definire il Request URI per accedere

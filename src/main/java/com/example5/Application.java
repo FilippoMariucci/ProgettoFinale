@@ -1,41 +1,54 @@
 package com.example5;
 
-import Model.SpazioVariabili;
-import Repository.MeteoRepository;
+import Service.StaticConfig;
 
-import org.apache.catalina.webresources.war.Handler;
-
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-import javax.net.ssl.HttpsURLConnection;
-import java.awt.event.WindowListener;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.rmi.RemoteException;
-import java.util.Optional;
-import java.util.Scanner;
-import java.util.Timer;
-
+import javax.annotation.PostConstruct;
 
 
 @SpringBootApplication(scanBasePackages = {
 		"Utilities","Repository","Model","Controller","Service","ApiUtente","Eccezioni"})
+@EnableScheduling
+//@EnableJpaRepositories("Repository")
+//@EntityScan("Repository")
 
 public class Application {
 
-	public static void main(String[] args) throws IOException, ParseException {
+
+	@Autowired
+	private Environment env;
+
+	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		{
 
-
-		}
 	}
-}
+
+
+
+
+		/** Metodo eseguito alla fine dell'inizializzazione dell'applicativo da
+		 * parte del framework Spring e prima del suo avvio (grazie all'annotazione @PostConstruct)
+		 * Legge dal file application.properties, usando l'interfaccia Environment, le
+		 * configurazioni fisse (non modificabili a runtime)
+		 */
+		@PostConstruct
+		public void init(){
+		StaticConfig.setApikey(env.getProperty("mmw.apikey"));
+		StaticConfig.setOffset(Long.parseLong(env.getProperty("mmw.offset")));
+		StaticConfig.setCallOpenWeather(Boolean.parseBoolean(env.getProperty("mmw.callopenweather")));
+
+
+	}
+	}
+
 
 
 /**SchedulerInternet si1 = new SchedulerInternet("Task1");

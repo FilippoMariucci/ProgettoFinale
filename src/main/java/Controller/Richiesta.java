@@ -72,7 +72,7 @@ public  abstract class Richiesta extends MeteoUtilities {
      * Costruttore con paremetri MeteoRepository, Filtro
      */
 
-    public Richiesta(JSONObject  filter,MeteoRepository meteoRepository){
+    public Richiesta(JSONObject  filter, MeteoRepository meteoRepository){
         this.meteoRepository=meteoRepository;
         this.filter=filter;
         this.answer=new JSONObject();
